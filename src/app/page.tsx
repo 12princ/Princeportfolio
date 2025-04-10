@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaInstagramSquare, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import CustomCursor from '@/components/ui/CustomCursor';
 import PageTransition from '@/components/ui/PageTransition';
 import Navbar from '@/components/layout/Navbar';
@@ -169,14 +169,14 @@ export default function Home() {
 
       {/* Social Media */}
       <div className="fixed right-6 bottom-20 flex flex-col space-y-6">
-        <a href="https://github.com" className="hover:text-lime transition-colors" target="_blank" rel="noopener noreferrer">
+        <a href="https://github.com/12princ" className="hover:text-lime transition-colors" target="_blank" rel="noopener noreferrer">
           <FaGithub size={24} />
         </a>
-        <a href="https://linkedin.com" className="hover:text-lime transition-colors" target="_blank" rel="noopener noreferrer">
+        <a href="https://www.linkedin.com/in/priyanshu-patel-techveda" className="hover:text-lime transition-colors" target="_blank" rel="noopener noreferrer">
           <FaLinkedin size={24} />
         </a>
-        <a href="https://twitter.com" className="hover:text-lime transition-colors" target="_blank" rel="noopener noreferrer">
-          <FaTwitter size={24} />
+        <a href="https://www.instagram.com/__p12.5.__/" className="hover:text-lime transition-colors" target="_blank" rel="noopener noreferrer">
+          <FaInstagramSquare size={24} />
         </a>
       </div>
 
