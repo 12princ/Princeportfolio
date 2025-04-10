@@ -40,7 +40,8 @@ export default {
       subtitle: 'company',
       year: 'year',
     },
-    prepare({ title, subtitle, year }: { title: string; subtitle: string; year: string }) {
+    prepare(selection: Record<string, any>) {
+      const { title, subtitle, year } = selection;
       return {
         title: `${year} - ${title}`,
         subtitle,
