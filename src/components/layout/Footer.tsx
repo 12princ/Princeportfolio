@@ -11,7 +11,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-8">
           <div>
             <Link href="/" className="text-2xl font-bold inline-block mb-6">
-              Build<span className="text-lime">Style</span>
+              Priyanshu<span className="text-lime">Patel</span>
             </Link>
             <p className="text-gray-400 mb-6">
               Creating unique fashion experiences with innovative designs and sustainable practices.
@@ -60,22 +60,22 @@ export default function Footer() {
             <ul className="space-y-4">
               <li className="flex items-center">
                 <FaMapMarkerAlt className="text-lime mr-3" />
-                <span className="text-gray-400">123 Fashion Street, New York</span>
+                <span className="text-gray-400">Surat, Gujarat, India</span>
               </li>
               <li className="flex items-center">
                 <FaPhone className="text-lime mr-3" />
-                <span className="text-gray-400">+1 (555) 123-4567</span>
+                <span className="text-gray-400">+91 7046503593</span>
               </li>
               <li className="flex items-center">
                 <FaEnvelope className="text-lime mr-3" />
-                <span className="text-gray-400">info@buildstyle.com</span>
+                <span className="text-gray-400">priyanshupatel1253@gmail.com</span>
               </li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-          <p>© {new Date().getFullYear()} BuildStyle. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Priyanshu Patel. All rights reserved.</p>
         </div>
       </div>
     </footer>

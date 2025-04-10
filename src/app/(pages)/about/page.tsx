@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FaCode, FaLaptopCode, FaMobileAlt, FaServer } from 'react-icons/fa';
+import { client } from '@sanity/lib/client';
+import { getTimelineQuery } from '@sanity/lib/queries';
 import CustomCursor from '@/components/ui/CustomCursor';
 import PageTransition from '@/components/ui/PageTransition';
 import Navbar from '@/components/layout/Navbar';
@@ -18,34 +20,33 @@ const skills = [
   { name: "Python", level: 70 },
 ];
 
-const timeline = [
-  {
-    year: "2023",
-    title: "Senior Frontend Developer",
-    company: "Tech Innovations Inc.",
-    description: "Led development of responsive web applications using React and Next.js."
-  },
-  {
-    year: "2021",
-    title: "Full Stack Developer",
-    company: "Digital Solutions Ltd.",
-    description: "Built scalable web applications with modern JavaScript frameworks."
-  },
-  {
-    year: "2019",
-    title: "Web Developer",
-    company: "Creative Studios",
-    description: "Developed dynamic websites and implemented responsive designs."
-  },
-  {
-    year: "2018",
-    title: "Computer Science Degree",
-    company: "Tech University",
-    description: "Bachelor's degree with focus on software development and algorithms."
-  }
-];
+interface TimelineEntry {
+  _id: string;
+  year: string;
+  title: string;
+  company: string;
+  description: string;
+}
 
 export default function About() {
+  const [timeline, setTimeline] = useState<TimelineEntry[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTimeline = async () => {
+      try {
+        const data = await client.fetch(getTimelineQuery);
+        setTimeline(data || []);
+      } catch (error) {
+        console.error('Error fetching timeline:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchTimeline();
+  }, []);
+
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
       <CustomCursor />
@@ -199,34 +200,45 @@ export default function About() {
           {/* Vertical line */}
           <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-gray-800 transform md:translate-x-px"></div>
           
-          <div className="space-y-12">
-            {timeline.map((item, index) => (
-              <motion.div 
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className={`flex flex-col md:flex-row gap-8 relative ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-              >
-                {/* Dot on timeline */}
-                <div className="absolute left-0 md:left-1/2 w-5 h-5 bg-lime rounded-full transform -translate-x-2 md:-translate-x-2.5 mt-1.5"></div>
-                
-                {/* Date column */}
-                <div className={`md:w-1/2 md:text-right ${index % 2 === 0 ? 'md:text-left' : ''} pl-8 md:pl-0`}>
-                  <div className="bg-gray-900/30 backdrop-blur-sm p-6 rounded-xl hover:bg-gray-900/50 transition duration-300">
-                    <span className="text-lime font-mono">{item.year}</span>
-                    <h3 className="text-xl font-medium mb-2">{item.title}</h3>
-                    <div className="text-gray-400 mb-2">{item.company}</div>
-                    <p className="text-gray-300">{item.description}</p>
+          {isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-lime"></div>
+            </div>
+          ) : timeline.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-xl mb-4">No timeline entries found</p>
+              <p className="text-gray-400 mb-8">Add your professional journey in Sanity Studio</p>
+            </div>
+          ) : (
+            <div className="space-y-12">
+              {timeline.map((item, index) => (
+                <motion.div 
+                  key={item._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className={`flex flex-col md:flex-row gap-8 relative ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                >
+                  {/* Dot on timeline */}
+                  <div className="absolute left-0 md:left-1/2 w-5 h-5 bg-lime rounded-full transform -translate-x-2 md:-translate-x-2.5 mt-1.5"></div>
+                  
+                  {/* Date column */}
+                  <div className={`md:w-1/2 md:text-right ${index % 2 === 0 ? 'md:text-left' : ''} pl-8 md:pl-0`}>
+                    <div className="bg-gray-900/30 backdrop-blur-sm p-6 rounded-xl hover:bg-gray-900/50 transition duration-300">
+                      <span className="text-lime font-mono">{item.year}</span>
+                      <h3 className="text-xl font-medium mb-2">{item.title}</h3>
+                      <div className="text-gray-400 mb-2">{item.company}</div>
+                      <p className="text-gray-300">{item.description}</p>
+                    </div>
                   </div>
-                </div>
-                
-                {/* Empty column for alignment */}
-                <div className="md:w-1/2"></div>
-              </motion.div>
-            ))}
-          </div>
+                  
+                  {/* Empty column for alignment */}
+                  <div className="md:w-1/2"></div>
+                </motion.div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

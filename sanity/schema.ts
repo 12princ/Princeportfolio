@@ -5,7 +5,8 @@ import project from './schemas/project';
 import service from './schemas/service';
 import about from './schemas/about';
 import contact from './schemas/contact';
+import { objects } from './schemas/objects';
 
 export const schema = {
-  types: [post, author, project, service, about, contact] as SchemaTypeDefinition[],
+  types: [...objects, post, author, project, service, about, contact] as SchemaTypeDefinition[],
 }; 

@@ -30,20 +30,33 @@ export const getFeaturedProjectsQuery = groq`
   publishedAt
 }`;
 
-export const getProjectBySlugQuery = groq`
-*[_type == "project" && slug.current == $slug][0] {
+export const projectsQuery = groq`*[_type == "project"] | order(_createdAt desc) {
   _id,
   title,
   slug,
   mainImage,
   images,
-  description,
-  content,
   category,
+  description,
   technologies,
-  publishedAt,
+  githubUrl,
   liveUrl,
-  githubUrl
+  publishedAt
+}`;
+
+export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $slug][0] {
+  _id,
+  title,
+  slug,
+  mainImage,
+  images,
+  category,
+  description,
+  technologies,
+  githubUrl,
+  liveUrl,
+  publishedAt,
+  body
 }`;
 
 export const getProjectsByCategoryQuery = groq`
@@ -108,6 +121,20 @@ export const getAllPostsQuery = groq`
   }
 }`;
 
+export const postsQuery = groq`*[_type == "post"] | order(publishedAt desc) {
+  _id,
+  title,
+  slug,
+  mainImage,
+  author->{
+    name,
+    image
+  },
+  publishedAt,
+  excerpt,
+  body
+}`;
+
 export const getPostBySlugQuery = groq`
 *[_type == "post" && slug.current == $slug][0] {
   _id,
@@ -115,7 +142,7 @@ export const getPostBySlugQuery = groq`
   slug,
   mainImage,
   excerpt,
-  content,
+  body,
   tags,
   publishedAt,
   readingTime,
@@ -127,20 +154,54 @@ export const getPostBySlugQuery = groq`
   }
 }`;
 
-export const getRecentPostsQuery = groq`
-*[_type == "post"] | order(publishedAt desc)[0...3] {
+export const postBySlugQuery = groq`*[_type == "post" && slug.current == $slug][0] {
+  _id,
+  title,
+  slug,
+  mainImage,
+  author->{
+    name,
+    image,
+    bio
+  },
+  publishedAt,
+  excerpt,
+  body,
+  tags,
+  readingTime
+}`;
+
+export const getRecentPostsQuery = groq`*[_type == "post"] | order(publishedAt desc)[0...3] {
   _id,
   title,
   slug,
   mainImage,
   excerpt,
   publishedAt,
-  readingTime,
   author->{
     name,
     image
   }
 }`;
 
-// Contact query
-export const getContactQuery = groq`*[_type == "contact"][0]`; 
+export const recentPostsQuery = groq`*[_type == "post"] | order(publishedAt desc)[0...3] {
+  _id,
+  title,
+  slug,
+  mainImage,
+  excerpt,
+  publishedAt,
+  author->{
+    name,
+    image
+  }
+}`;
+
+// Timeline queries
+export const getTimelineQuery = groq`*[_type == "timeline"] | order(order asc) {
+  _id,
+  year,
+  title,
+  company,
+  description
+}`;

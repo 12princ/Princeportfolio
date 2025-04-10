@@ -9,6 +9,8 @@ import CustomCursor from '@/components/ui/CustomCursor';
 import PageTransition from '@/components/ui/PageTransition';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { FeaturedProjects } from '@/components/FeaturedProjects';
+import { LatestBlogPosts } from '@/components/LatestBlogPosts';
 
 // Projects data
 const projects = [
@@ -56,7 +58,7 @@ export default function Home() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.7 }}
             >
-              Developer and designer focused on creating intuitive, user-friendly digital experiences with modern technologies.dedicated developer with a diverse skill set in Programming, Graphic Design, and Video Editing. With a passion for creating innovative solutions and a commitment to authenticity, I bring both technical expertise and creative vision to every project. While I’m naturally introverted, I thrive in environments that challenge my thinking and encourage growth. My aim is to deliver high-quality work that exceeds expectations, fostering trust and long-term collaboration. Let’s build something great together!
+              Developer and designer focused on creating intuitive, user-friendly digital experiences with modern technologies.dedicated developer with a diverse skill set in Programming, Graphic Design, and Video Editing. With a passion for creating innovative solutions and a commitment to authenticity, I bring both technical expertise and creative vision to every project. While I'm naturally introverted, I thrive in environments that challenge my thinking and encourage growth. My aim is to deliver high-quality work that exceeds expectations, fostering trust and long-term collaboration. Let's build something great together!
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -160,40 +162,10 @@ export default function Home() {
       </section>
 
       {/* Featured Projects */}
-      <section className="container py-16 border-t border-gray-800">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-light mb-4">Featured Projects</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">A selection of my recent work showcasing web development and design skills.</p>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="group"
-            >
-              <div className="overflow-hidden rounded-lg mb-4">
-                <Image 
-                  src={project.img}
-                  alt={`Project: ${project.title}`}
-                  width={600}
-                  height={800}
-                  className="w-full h-80 object-cover grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-105"
-                />
-              </div>
-              <h3 className="text-xl mb-2">{project.title}</h3>
-              <p className="text-gray-400">{project.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+      <FeaturedProjects />
 
-      
+      {/* Latest Blog Posts */}
+      <LatestBlogPosts />
 
       {/* Social Media */}
       <div className="fixed right-6 bottom-20 flex flex-col space-y-6">
