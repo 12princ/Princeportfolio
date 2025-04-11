@@ -14,7 +14,9 @@ export default defineConfig({
     types: schemaTypes
   },
   cors: {
-    origin: ['http://localhost:3000/studio'],
+    origin: process.env.NODE_ENV === 'development' 
+      ? ['http://localhost:3000']
+      : [process.env.NEXT_PUBLIC_SITE_URL || '*'],
     credentials: true
   }
 }); 

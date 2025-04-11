@@ -77,21 +77,42 @@ export default function Contact() {
     
     setFormStatus('submitting');
     
-    // Simulate form submission
-    setTimeout(() => {
-      setFormStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    try {
+      const web3FormData = new FormData();
+      web3FormData.append('name', formData.name);
+      web3FormData.append('email', formData.email);
+      web3FormData.append('subject', formData.subject);
+      web3FormData.append('message', formData.message);
+      web3FormData.append('access_key', '344d7e67-cc3d-468a-9c2d-2bd33064c8e1');
+      
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: web3FormData
       });
       
-      // Reset form status after 3 seconds
-      setTimeout(() => {
-        setFormStatus('idle');
-      }, 3000);
-    }, 1500);
+      const data = await response.json();
+      
+      if (data.success) {
+        setFormStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+        
+        // Reset form status after 3 seconds
+        setTimeout(() => {
+          setFormStatus('idle');
+        }, 3000);
+      } else {
+        setFormStatus('error');
+        console.error('Form submission error:', data);
+      }
+    } catch (error) {
+      setFormStatus('error');
+      console.error('Error submitting form:', error);
+    }
   };
   
   return (
@@ -358,7 +379,8 @@ export default function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-4 p-3 bg-green-500/20 border border-green-500 rounded-lg text-green-400"
                   >
-                    Your message has been sent successfully!
+                    <p className="text-lg font-medium mb-1">Thank you for reaching out!</p>
+                    <p>I've received your message and will get back to you as soon as possible.</p>
                   </motion.div>
                 )}
                 
@@ -369,7 +391,8 @@ export default function Contact() {
                     animate={{ opacity: 1, y: 0 }}
                     className="mt-4 p-3 bg-red-500/20 border border-red-500 rounded-lg text-red-400"
                   >
-                    There was an error sending your message. Please try again.
+                    <p className="text-lg font-medium mb-1">Oops! Something went wrong</p>
+                    <p>There was an error sending your message. Please try again later or contact me directly at contact@priyanshupatel.com</p>
                   </motion.div>
                 )}
               </div>
