@@ -182,7 +182,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium">Location</h3>
-                  <p className="text-gray-400">San Francisco, California</p>
+                  <p className="text-gray-400">Surat, Gujrat, India</p>
                 </div>
               </div>
               
