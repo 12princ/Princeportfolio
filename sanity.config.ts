@@ -15,7 +15,8 @@ export default defineConfig({
   },
   cors: {
     origin: process.env.NODE_ENV === 'development' 
-      ? ['http://localhost:3000']
+      ? ['https://princeportfolio-5ajb7ee4r-priyanshupatel1253-gmailcoms-projects.vercel.app']
+      
       : [process.env.NEXT_PUBLIC_SITE_URL || '*'],
     credentials: true
   }
