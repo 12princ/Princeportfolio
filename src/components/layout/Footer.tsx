@@ -18,7 +18,7 @@ export default function Footer() {
             </p>
             <div className="flex space-x-4">
               <a href="https://www.linkedin.com/in/priyanshu-patel-techveda/" className="text-gray-400 hover:text-lime">
-                <FaLinkedin size={18} />
+                <FaFacebook size={18} />
               </a>
               <a href="https://x.com/Priyans24482384" className="text-gray-400 hover:text-lime">
                 <FaTwitter size={18} />
