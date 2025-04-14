@@ -17,16 +17,16 @@ export default function Footer() {
               Creating unique fashion experiences with innovative designs and sustainable practices.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-lime">
-                <FaFacebook size={18} />
+              <a href="https://www.linkedin.com/in/priyanshu-patel-techveda/" className="text-gray-400 hover:text-lime">
+                <FaLinkedin size={18} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-lime">
+              <a href="https://x.com/Priyans24482384" className="text-gray-400 hover:text-lime">
                 <FaTwitter size={18} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-lime">
+              <a href="https://www.instagram.com/__p12.5.__/" className="text-gray-400 hover:text-lime">
                 <FaInstagram size={18} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-lime">
+              <a href="https://www.behance.net/priyanshupatel43" className="text-gray-400 hover:text-lime">
                 <FaBehance size={18} />
               </a>
             </div>
