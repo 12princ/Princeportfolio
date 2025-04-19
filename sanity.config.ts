@@ -14,10 +14,11 @@ export default defineConfig({
     types: schemaTypes
   },
   cors: {
-    origin: process.env.NODE_ENV === 'development' 
-      ? ['https://princeportfolio-5ajb7ee4r-priyanshupatel1253-gmailcoms-projects.vercel.app']
-      
-      : [process.env.NEXT_PUBLIC_SITE_URL || '*'],
+    origin: [
+      'http://localhost:3000',
+      'https://princeportfolio-ku9nnqtzx-priyanshupatel1253-gmailcoms-projects.vercel.app',
+      process.env.NEXT_PUBLIC_SITE_URL || '*'
+    ],
     credentials: true
   }
 }); 

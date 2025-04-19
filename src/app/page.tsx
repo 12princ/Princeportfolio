@@ -92,17 +92,6 @@ export default function Home() {
                 />
               </div>
             </motion.div>
-            <motion.div 
-              className="absolute bottom-8 left-0 flex items-center bg-black/60 backdrop-blur-sm p-4 rounded-r-full"
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 1, duration: 0.5 }}
-            >
-              <div className="bg-lime w-10 h-10 rounded-full flex items-center justify-center mr-3">
-                <span className="text-black">▶</span>
-              </div>
-              <span className="text-sm">View Portfolio</span>
-            </motion.div>
           </div>
         </div>
       </section>

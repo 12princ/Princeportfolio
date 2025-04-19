@@ -5,7 +5,7 @@ export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
   apiVersion: '2024-03-13',
-  useCdn: process.env.NODE_ENV === 'production',
+  useCdn: true,
   token: process.env.SANITY_API_TOKEN,
   stega: {
     enabled: process.env.NODE_ENV === 'development',
@@ -13,6 +13,7 @@ export const client = createClient({
   },
   perspective: 'published',
   withCredentials: true,
+  ignoreBrowserTokenWarning: true
 });
 
 const builder = imageUrlBuilder(client);

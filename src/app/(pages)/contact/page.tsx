@@ -192,8 +192,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium">Email</h3>
-                  <a href="mailto:contact@priyanshupatel.com" className="text-gray-400 hover:text-lime">
-                    contact@priyanshupatel.com
+                  <a href="mailto:priyanshupatel1253@gmail.com" className="text-gray-400 hover:text-lime">
+                  priyanshupatel1253@gmail.com
                   </a>
                 </div>
               </div>
@@ -204,8 +204,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <h3 className="text-lg font-medium">Phone</h3>
-                  <a href="tel:+1234567890" className="text-gray-400 hover:text-lime">
-                    +1 (234) 567-890
+                  <a href="tel:+91 7046503593" className="text-gray-400 hover:text-lime">
+                    +91 7046503593
                   </a>
                 </div>
               </div>
