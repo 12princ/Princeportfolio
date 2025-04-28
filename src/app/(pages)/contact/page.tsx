@@ -502,7 +502,7 @@ export default function Contact() {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
               <a 
-                href="mailto:contact@priyanshupatel.com" 
+                href="mailto:contact@priyanshupatel1253@gmail.com" 
                 className="bg-lime text-black px-8 py-4 rounded-full inline-block font-medium hover:bg-opacity-80 transition-all"
               >
                 Email Me Directly
