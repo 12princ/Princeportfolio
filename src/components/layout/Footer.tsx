@@ -14,7 +14,7 @@ export default function Footer() {
               Priyanshu<span className="text-lime">Patel</span>
             </Link>
             <p className="text-gray-400 mb-6">
-              Creating unique fashion experiences with innovative designs and sustainable practices.
+              Creating unique User experiences with innovative designs and sustainable practices.Creating impactful digital experiences with modern design principles and the latest technologies.
             </p>
             <div className="flex space-x-4">
               <a href="https://www.linkedin.com/in/priyanshu-patel-techveda/" className="text-gray-400 hover:text-lime">
