@@ -181,8 +181,8 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <span className="text-white">"Driven by a passion for creating elegant and purposeful digital experiences, I build websites where design meets technical precision. What began as a curiosity has evolved into crafting solutions that are both visually compelling and functionally seamless</span>
-            <span className="text-gray-500"> Alongside this, I am scaling <a href='https://techvedaportfolio.vercel.app/'>TechVeda.</a> — a vision-led agency of developers and designers committed to shaping exceptional user experiences."</span>
+            <span className="text-white">"Driven by a passion for creating elegant and purposeful digital experiences, I build websites where design meets technical precision.</span>
+            <span className="text-gray-500"> What began as a curiosity has evolved into a craft <a href='https://techvedaportfolio.vercel.app/'>developing portfolio sites and high-converting landing pages that are both visually compelling and seamlessly functional. Whether you’re a creator, brand, or business, I’m here to help you make an unforgettable first impression online.</span>
           </motion.blockquote>
         </section>
 
