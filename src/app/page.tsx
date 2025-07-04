@@ -186,6 +186,9 @@ export default function Home() {
           </motion.blockquote>
         </section>
 
+          {/* Featured Projects */}
+        <FeaturedProjects />
+
         {/* Quote Section */}
         <section className="container py-16 border-t border-gray-800">
           <div className="grid md:grid-cols-2 gap-16 items-center">
@@ -308,8 +311,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Featured Projects */}
-        <FeaturedProjects />
+        
 
         {/* Latest Blog Posts */}
         <LatestBlogPosts />
