@@ -448,30 +448,33 @@ export default function Contact() {
       </section>
 
       {/* Map Section */}
-      <section className="container py-16 border-t border-gray-800">
-        <motion.h2 
-          className="text-4xl font-light mb-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          Find <span className="text-lime">Me</span>
-        </motion.h2>
-        
-        <div className="rounded-xl overflow-hidden h-96 bg-gray-900 relative">
-          {/* Placeholder for map, in a real application you would integrate Google Maps, Mapbox, etc. */}
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-900">
-            <div className="text-center p-8">
-              <FaMapMarkerAlt className="text-lime text-5xl mb-4 mx-auto" />
-              <h3 className="text-xl font-medium mb-2">San Francisco, California</h3>
-              <p className="text-gray-400">
-                Available for remote work and local projects in the Bay Area
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Map Section */}
+<section className="container py-16 border-t border-gray-800">
+  <motion.h2 
+    className="text-4xl font-light mb-16 text-center"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 0.5 }}
+  >
+    Find <span className="text-lime">Me</span>
+  </motion.h2>
+  
+  <div className="rounded-xl overflow-hidden h-96 bg-gray-900 relative">
+    {/* Google Maps Embed for London, UK */}
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19801.84420959653!2d-0.1277583!3d51.5073509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b33316a8d13%3A0x7e09c5b92c8e4d9b!2sLondon%2C%20UK!5e0!3m2!1sen!2sin!4v1695900000000!5m2!1sen!2sin"
+      width="100%"
+      height="100%"
+      style={{ border: 0 }}
+      allowFullScreen=""
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      className="absolute inset-0"
+    ></iframe>
+  </div>
+</section>
+
 
       {/* Call To Action */}
       <section className="container py-16 border-t border-gray-800">
