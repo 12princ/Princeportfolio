@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -17,40 +17,44 @@ import { urlForImage } from '@sanity/lib/image';
 interface Project {
   _id: string;
   title: string;
-  description: string;
+  description?: string;
   mainImage: any;
-  images: any[];
-  technologies: string[];
-  category: string;
-  githubUrl: string;
-  liveUrl: string;
+  images?: any[];
+  technologies?: string[];
+  category?: string;
+  githubUrl?: string;
+  liveUrl?: string;
   slug: {
     current: string;
   };
   publishedAt: string;
 }
 
-// Categories for filtering
-const categories = [
-  "All",
-  "Web Development",
-  "Web Design",
-  "Web App",
-  "Mobile App",
-];
-
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
+        setIsLoading(true);
+        setError(null);
         const data = await client.fetch(projectsQuery);
-        setProjects(data);
+        setProjects((data ?? []).map((p: Project) => ({
+          ...p,
+          title: p.title ?? '',
+          description: p.description ?? '',
+          category: p.category ?? '',
+          technologies: p.technologies ?? [],
+          images: p.images ?? [],
+          githubUrl: p.githubUrl ?? '',
+          liveUrl: p.liveUrl ?? '',
+        })));
       } catch (error) {
         console.error('Error fetching projects:', error);
+        setError('Failed to load projects');
       } finally {
         setIsLoading(false);
       }
@@ -59,10 +63,62 @@ export default function Projects() {
     fetchProjects();
   }, []);
 
-  // Filter projects by category
-  const filteredProjects = activeCategory === "All"
-    ? projects
-    : projects.filter(project => project.category === activeCategory);
+  // Shared normalization function for consistent category comparison
+  // Handles case-insensitive matching, whitespace, and special characters
+  const normalizeCategory = (category: string): string => {
+    if (!category || typeof category !== 'string') return '';
+    // Convert to lowercase, trim, and replace multiple spaces with single space
+    return category.toLowerCase().trim().replace(/\s+/g, ' ');
+  };
+
+  // Extract unique categories dynamically from Sanity project data
+  // Removes duplicates and displays only unique categories from the category field
+  const categories = useMemo(() => {
+    // Use Set to track normalized categories we've seen (for true deduplication)
+    const seenNormalized = new Set<string>();
+    // Use Map to store normalized -> original casing mapping
+    const uniqueCategoryMap = new Map<string, string>();
+    
+    // Iterate through all projects and collect unique categories from Sanity
+    projects.forEach(p => {
+      const category = p.category;
+      
+      // Skip if category is empty, null, or undefined
+      if (!category || typeof category !== 'string') return;
+      
+      // Normalize the category for comparison
+      const normalized = normalizeCategory(category);
+      
+      // Skip if normalized category is empty
+      if (!normalized) return;
+      
+      // Only add if this normalized category hasn't been seen before
+      // This ensures duplicates are completely ignored
+      if (!seenNormalized.has(normalized)) {
+        seenNormalized.add(normalized);
+        // Store first occurrence's original casing for display
+        uniqueCategoryMap.set(normalized, category.trim());
+      }
+    });
+    
+    // Convert to sorted array of unique categories only
+    const uniqueCategories = Array.from(uniqueCategoryMap.values()).sort();
+    return ["All", ...uniqueCategories];
+  }, [projects]);
+
+  // Filter projects based on active category from Sanity data
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === 'All') {
+      return projects;
+    }
+    
+    const normalizedActiveCategory = normalizeCategory(activeCategory);
+    
+    return projects.filter(p => {
+      const normalizedProjectCategory = normalizeCategory(p.category ?? '');
+      return normalizedProjectCategory === normalizedActiveCategory;
+    });
+  }, [projects, activeCategory]);
 
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
@@ -73,7 +129,8 @@ export default function Projects() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="container py-16 border-t border-gray-800">
+      <section className="border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -86,14 +143,16 @@ export default function Projects() {
             Each project represents my dedication to creating engaging, user-focused digital experiences.
           </p>
         </motion.div>
+        </div>
       </section>
 
       {/* Filter Categories */}
-      <section className="container pb-12">
-        <div className="flex flex-wrap justify-center gap-4 mb-12">
+      <section>
+        <div className="max-w-6xl mx-auto px-6 md:px-12 pb-12">
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category, index) => (
             <motion.button
-              key={index}
+              key={category}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: index * 0.1 }}
@@ -107,86 +166,90 @@ export default function Projects() {
               {category}
             </motion.button>
           ))}
+          </div>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="container pb-16">
-        {isLoading ? (
-          <div className="flex justify-center items-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-lime"></div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project._id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group"
-              >
-                <div className="overflow-hidden rounded-xl mb-4 aspect-video bg-gray-900 relative">
-                  <Image
-                    src={urlForImage(project.mainImage)?.url() || ''}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition-all duration-500 group-hover:scale-105 grayscale group-hover:grayscale-0"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-6 w-full">
-                      <div className="flex justify-between items-center">
-                        <h3 className="text-lg font-medium">{project.title}</h3>
-                        <div className="flex space-x-3">
-                          <a
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-white hover:text-lime transition-colors"
-                          >
-                            <FaGithub size={18} />
-                          </a>
-                          <a
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-white hover:text-lime transition-colors"
-                          >
-                            <FaExternalLinkAlt size={16} />
-                          </a>
-                        </div>
-                      </div>
+      <section>
+        <div className="max-w-6xl mx-auto px-6 md:px-12 pb-16">
+          {isLoading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-lime"></div>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12">
+              <p className="text-xl mb-4">Unable to load projects</p>
+              <p className="text-gray-400 mb-8">Please try again later</p>
+            </div>
+          ) : filteredProjects.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-xl mb-4">No projects found</p>
+              <p className="text-gray-400 mb-8">Try a different category</p>
+            </div>
+          ) : (
+            <motion.div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              {filteredProjects.map((project, index) => {
+                const imgUrl = urlForImage(project.mainImage)?.url();
+                return (
+                  <motion.div
+                    key={project._id}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    className="group bg-transparent"
+                  >
+                    <div className="overflow-hidden rounded-xl mb-4 aspect-video bg-gray-900 relative">
+                      {imgUrl ? (
+                        <Image
+                          src={imgUrl}
+                          alt={project.title}
+                          fill
+                          className="object-cover transition-all duration-500 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-gray-900" />
+                      )}
                     </div>
-                  </div>
-                </div>
 
-                <h3 className="text-xl font-medium mb-2">{project.title}</h3>
-                <p className="text-gray-400 mb-4 line-clamp-3">{project.description}</p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tag, idx) => (
-                    <span key={idx} className="text-xs px-3 py-1 bg-gray-900/50 rounded-full text-gray-300">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                
-                <Link
-                  href={`/projects/${project.slug.current}`}
-                  className="text-lime text-sm flex items-center hover:underline"
-                >
-                  View Details <span className="ml-1">→</span>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
-        )}
+                    <h3 className="text-xl font-medium mb-2">{project.title}</h3>
+                    <p className="text-gray-400 mb-4 line-clamp-3">{project.description}</p>
+
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {(project.technologies ?? []).map((tag, idx) => (
+                        <span key={idx} className="text-xs px-3 py-1 bg-gray-900/50 rounded-full text-gray-300">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                      
+                      <Link
+                        href={`/projects/${project.slug.current}`}
+                        className="text-lime text-sm inline-flex items-center hover:underline ml-auto"
+                      >
+                        View Details <span className="ml-1">→</span>
+                      </Link>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          )}
+        </div>
       </section>
 
       {/* More Projects Section */}
-      <section className="container py-16 border-t border-gray-800">
-        <div className="text-center max-w-4xl mx-auto">
+      <section className="border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 text-center max-w-4xl">
           <motion.h2 
             className="text-4xl font-light mb-8"
             initial={{ opacity: 0, y: 20 }}

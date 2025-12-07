@@ -52,11 +52,11 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
   images,
   category,
   description,
+  body,
   technologies,
   githubUrl,
   liveUrl,
-  publishedAt,
-  body
+  publishedAt
 }`;
 
 export const getProjectsByCategoryQuery = groq`

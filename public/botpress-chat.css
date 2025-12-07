@@ -1,0 +1,123 @@
+/* ==============================
+   BOTPRESS CHAT THEME — PRIYANSHU PATEL
+   Dark Futuristic + Neon Lime Accent
+   ============================== */
+
+/* General Chat Window */
+.bpw-chat {
+  background: #0A0A0A !important;
+  border: 1px solid #1A1A1A;
+  border-radius: 16px !important;
+  box-shadow: 0 0 25px rgba(198, 255, 0, 0.1);
+}
+
+/* Header */
+.bpw-header {
+  background: #111 !important;
+  color: #C6FF00 !important;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(198, 255, 0, 0.2);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.bpw-header-title {
+  color: #C6FF00 !important;
+  font-size: 1rem;
+}
+
+.bpw-header-subtitle {
+  color: #aaa !important;
+  font-size: 0.8rem;
+}
+
+/* Chat Bubbles */
+.bpw-from-bot .bpw-message {
+  background: #141414 !important;
+  color: #EDEDED !important;
+  border: 1px solid #1F1F1F;
+  border-radius: 14px !important;
+  box-shadow: 0 0 6px rgba(198, 255, 0, 0.1);
+}
+
+.bpw-from-user .bpw-message {
+  background: linear-gradient(135deg, #C6FF00, #A8FF00) !important;
+  color: #111 !important;
+  font-weight: 500;
+  border-radius: 14px 14px 2px 14px !important;
+  box-shadow: 0 0 10px rgba(198, 255, 0, 0.3);
+}
+
+/* Input Bar */
+.bpw-composer {
+  background: #111 !important;
+  border-top: 1px solid #222 !important;
+}
+
+.bpw-composer textarea {
+  background: #111 !important;
+  color: #C6FF00 !important;
+  border: 1px solid #222 !important;
+  border-radius: 12px !important;
+  transition: 0.3s ease;
+}
+
+.bpw-composer textarea:focus {
+  border-color: #C6FF00 !important;
+  box-shadow: 0 0 8px rgba(198, 255, 0, 0.4);
+}
+
+/* Buttons & Quick Replies */
+.bpw-button,
+.bpw-button-alt {
+  background: transparent !important;
+  border: 1px solid #C6FF00 !important;
+  color: #C6FF00 !important;
+  border-radius: 20px !important;
+  padding: 6px 14px !important;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.bpw-button:hover {
+  background: #C6FF00 !important;
+  color: #111 !important;
+  box-shadow: 0 0 12px rgba(198, 255, 0, 0.4);
+}
+
+/* Scrollbar */
+.bpw-chat .bpw-messages-container::-webkit-scrollbar {
+  width: 8px;
+}
+.bpw-chat .bpw-messages-container::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 8px;
+}
+.bpw-chat .bpw-messages-container::-webkit-scrollbar-thumb:hover {
+  background: #C6FF00;
+}
+
+/* Avatars */
+.bpw-avatar img {
+  filter: brightness(1.2) contrast(1.1);
+}
+
+/* Launcher (Floating Icon) */
+.bpw-widget-container .bpw-launcher {
+  background: #C6FF00 !important;
+  color: #000 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 0 25px rgba(198, 255, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.bpw-widget-container .bpw-launcher:hover {
+  box-shadow: 0 0 35px rgba(198, 255, 0, 0.7);
+  transform: scale(1.05);
+}
+
+/* Typing Indicator */
+.bpw-typing-indicator {
+  background: #C6FF00 !important;
+}
+

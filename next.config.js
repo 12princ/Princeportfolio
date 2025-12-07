@@ -51,6 +51,11 @@ const nextConfig = {
   compress: true,
   // Configure page extensions
   pageExtensions: ['tsx', 'ts', 'jsx', 'js'],
+  // Production optimizations
+  poweredByHeader: false,
+  generateEtags: true,
+  // Optimize production builds
+  productionBrowserSourceMaps: false,
   // Configure webpack
   webpack: (config, { dev, isServer }) => {
     // Optimize bundle size

@@ -80,19 +80,6 @@ export function FeaturedProjects() {
                     fill
                     className="object-cover transition-all duration-500 group-hover:scale-105 grayscale group-hover:grayscale-0"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                    <div className="p-6 w-full">
-                      <div className="flex justify-between items-center">
-                        <h3 className="text-lg font-medium">{project.title}</h3>
-                        <Link 
-                          href={`/projects/${project.slug.current}`}
-                          className="text-white hover:text-lime transition-colors"
-                        >
-                          →
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
                 </div>
 
                 <h3 className="text-xl font-medium mb-2">{project.title}</h3>

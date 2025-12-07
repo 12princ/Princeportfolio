@@ -37,6 +37,12 @@ export default defineType({
       of: [{ type: 'image' }],
     }),
     defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'array',
+      of: [{ type: 'block' }],
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
@@ -45,7 +51,8 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
+      type: 'array',
+      of: [{ type: 'block' }],
       validation: (Rule: any) => Rule.required(),
     }),
     defineField({

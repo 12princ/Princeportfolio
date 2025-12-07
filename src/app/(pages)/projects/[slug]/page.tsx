@@ -12,13 +12,14 @@ import CustomCursor from '@/components/ui/CustomCursor';
 import PageTransition from '@/components/ui/PageTransition';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { PortableText } from '@portabletext/react';
 
 interface Project {
   _id: string;
   title: string;
   mainImage: any;
   images: any[];
-  description: string;
+  description: any[]; // changed from string to any[] for PortableText
   category: string;
   technologies: string[];
   githubUrl: string;
@@ -28,6 +29,7 @@ interface Project {
   };
   publishedAt: string;
   content: any[];
+  body: any[]; // Added body field
 }
 
 export default function ProjectPage({ params }: { params: { slug: string } }) {
@@ -156,8 +158,32 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
               className="mb-12"
             >
               <h2 className="text-2xl font-medium mb-4">Project Overview</h2>
-              <p className="text-gray-300 text-lg leading-relaxed">{project.description}</p>
+              <p className="text-gray-300 text-lg leading-relaxed mb-4">
+                {project.description}
+              </p>
             </motion.div>
+
+            {/* Project Body (Details) */}
+            {project.body && project.body.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="mb-12"
+              >
+                <h2 className="text-2xl font-medium mb-4">Project Details</h2>
+                <PortableText
+                  value={project.body}
+                  components={{
+                    block: {
+                      normal: ({ children }) => (
+                        <p className="text-gray-300 text-lg leading-relaxed mb-4">{children}</p>
+                      ),
+                    },
+                  }}
+                />
+              </motion.div>
+            )}
 
             {/* Technologies */}
             <motion.div

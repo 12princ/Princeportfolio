@@ -4,13 +4,14 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FaGithub, FaInstagramSquare, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaInstagramSquare, FaLinkedin, FaTwitter, FaCode, FaDatabase, FaPalette, FaMobile, FaSearch, FaChartLine } from 'react-icons/fa';
 import CustomCursor from '@/components/ui/CustomCursor';
 import PageTransition from '@/components/ui/PageTransition';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { FeaturedProjects } from '@/components/FeaturedProjects';
 import { LatestBlogPosts } from '@/components/LatestBlogPosts';
+import SocialLinksFloating from '@/components/SocialLinksFloating';
 
 // Projects data
 const projects = [
@@ -34,7 +35,7 @@ const projects = [
 // Add the services array from the services page for use in the home page services section
 const services = [
   {
-    icon: require('react-icons/fa').FaCode,
+    icon: FaCode,
     title: "Frontend Development",
     description: "Creating responsive and performant user interfaces using modern frameworks like React, Next.js and Vue.",
     features: [
@@ -45,7 +46,7 @@ const services = [
     ]
   },
   {
-    icon: require('react-icons/fa').FaDatabase,
+    icon: FaDatabase,
     title: "Backend Development",
     description: "Building robust, scalable server-side applications and APIs with Node.js, Express, and MongoDB.",
     features: [
@@ -56,7 +57,7 @@ const services = [
     ]
   },
   {
-    icon: require('react-icons/fa').FaPalette,
+    icon: FaPalette,
     title: "UI/UX Design",
     description: "Designing intuitive and beautiful interfaces that enhance user experience and engagement.",
     features: [
@@ -67,7 +68,7 @@ const services = [
     ]
   },
   {
-    icon: require('react-icons/fa').FaMobile,
+    icon: FaMobile,
     title: "Mobile Development",
     description: "Developing cross-platform mobile applications using React Native and Flutter.",
     features: [
@@ -78,7 +79,7 @@ const services = [
     ]
   },
   {
-    icon: require('react-icons/fa').FaSearch,
+    icon: FaSearch,
     title: "SEO Optimization",
     description: "Improving your website's visibility in search results to drive more organic traffic.",
     features: [
@@ -89,7 +90,7 @@ const services = [
     ]
   },
   {
-    icon: require('react-icons/fa').FaChartLine,
+    icon: FaChartLine,
     title: "Performance Optimization",
     description: "Enhancing the speed and performance of your web applications for better user experience.",
     features: [
@@ -113,7 +114,7 @@ export default function Home() {
         <Navbar />
 
         {/* Hero Section */}
-        <section className="container border-t border-gray-800 pt-16 pb-24">
+        <section id="hero" className="container border-t border-gray-800 pt-16 pb-24">
           <div className="grid md:grid-cols-2 gap-16 items-center">
             <div>
               <motion.h1 
@@ -171,7 +172,7 @@ export default function Home() {
         {/* About Section */}
         <section className="container py-16 border-t border-gray-800">
           <div className="text-center mb-16">
-            <h2 className="text-2xl mb-4">About me</h2>
+          <h2 className="text-4xl font-light mb-4">About <span className="text-lime">Me</span></h2>
           </div>
           
           <motion.blockquote 
@@ -181,8 +182,18 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <span className="text-white">"Driven by a passion for creating elegant and purposeful digital experiences, I build websites where design meets technical precision.</span>
-            <span className="text-gray-500"> What began as a curiosity has evolved into a craft <a href='https://techvedaportfolio.vercel.app/'>developing portfolio sites and high-converting landing pages that are both visually compelling and seamlessly functional. Whether you’re a creator, brand, or business, I’m here to help you make an unforgettable first impression online.</span>
+            <span className="text-white">
+              "Driven by a passion for creating elegant and purposeful digital experiences, I build websites where design meets technical precision"
+            </span>
+            <span className="text-gray-500">
+              {" "}
+              What began as a curiosity has evolved into a craft{" "}
+              <a href="https://techvedaportfolio.vercel.app/" target="_blank" rel="noopener noreferrer">
+                developing portfolio sites and high-converting landing pages
+              </a>
+              {" "}
+              that are both visually compelling and seamlessly functional. Whether you’re a creator, brand, or business, I’m here to help you make an unforgettable first impression online.
+            </span>
           </motion.blockquote>
         </section>
 
@@ -228,14 +239,14 @@ export default function Home() {
         {/* Services Section */}
         <section className="relative min-h-[60vh] w-full flex flex-col items-center justify-center overflow-hidden py-16 border-t border-gray-800 bg-black">
           <div className="relative z-10 flex flex-col items-center justify-center w-full h-full">
-            <h2 className="text-4xl font-light mb-6 text-center">What I Offer</h2>
+          <h2 className="text-4xl font-light mb-4">What I <span className="text-lime">Offer</span></h2>
             {/* Mobile/tablet image */}
             <div className="w-full flex items-center justify-center mb-8 lg:hidden">
               <div className="relative w-96 h-96 md:w-[480px] md:h-[480px]">
                 <Image
                   src="/7079651_3509464.svg"
                   alt="Services Illustration"
-                  layout="fill"
+                  fill
                   className="object-contain object-center w-full h-full opacity-80 md:opacity-90 transition-all duration-700"
                   priority
                   sizes="(max-width: 768px) 288px, (max-width: 1024px) 480px, 120vw"
@@ -253,7 +264,7 @@ export default function Home() {
                         initial={{ opacity: 0, x: -40 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: idx * 0.15 }}
-                        className="bg-gray-900/70 border border-gray-800 rounded-xl p-6 shadow-lg flex flex-col items-start group-hover:border-lime/70 group-hover:shadow-lime/10 transition-all duration-300 cursor-pointer"
+                        className="bg-gray-900/70 border border-gray-800 rounded-xl p-6 shadow-lg flex flex-col items-start group-hover:border-lime/70 group-hover:shadow-lime/10 transition-all duration-300 cursor-pointer w-full"
                       >
                         <div className="text-lime text-2xl mb-3">{React.createElement(service.icon)}</div>
                         <div className="font-semibold mb-1">{service.title}</div>
@@ -266,12 +277,12 @@ export default function Home() {
                   ))}
                 </div>
                 {/* Center illustration */}
-                <div className="flex flex-col items-center justify-center px-8">
+                <div className="flex flex-col items-center justify-center px-8 flex-shrink-0">
                   <div className="relative w-72 h-72 md:w-[480px] md:h-[480px] lg:w-[400px] lg:h-[400px] xl:w-[480px] xl:h-[480px]">
                     <Image
                       src="/7079651_3509464.svg"
                       alt="Services Illustration"
-                      layout="fill"
+                      fill
                       className="object-contain object-center w-full h-full opacity-80 md:opacity-90 transition-all duration-700"
                       priority
                       sizes="(max-width: 768px) 288px, (max-width: 1024px) 480px, 120vw"
@@ -286,7 +297,7 @@ export default function Home() {
                         initial={{ opacity: 0, x: 40 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.5, delay: idx * 0.15 }}
-                        className="bg-gray-900/70 border border-gray-800 rounded-xl p-6 shadow-lg flex flex-col items-start group-hover:border-lime/70 group-hover:shadow-lime/10 transition-all duration-300 cursor-pointer"
+                        className="bg-gray-900/70 border border-gray-800 rounded-xl p-6 shadow-lg flex flex-col items-start group-hover:border-lime/70 group-hover:shadow-lime/10 transition-all duration-300 cursor-pointer w-full"
                       >
                         <div className="text-lime text-2xl mb-3">{React.createElement(service.icon)}</div>
                         <div className="font-semibold mb-1">{service.title}</div>
@@ -316,18 +327,8 @@ export default function Home() {
         {/* Latest Blog Posts */}
         <LatestBlogPosts />
 
-        {/* Social Media */}
-        <div className="fixed right-6 bottom-20 flex flex-col space-y-6">
-          <a href="https://github.com/12princ" className="hover:text-lime transition-colors" target="_blank" rel="noopener noreferrer">
-            <FaGithub size={24} />
-          </a>
-          <a href="https://www.linkedin.com/in/priyanshu-patel-techveda" className="hover:text-lime transition-colors" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin size={24} />
-          </a>
-          <a href="https://www.instagram.com/__p12.5.__/" className="hover:text-lime transition-colors" target="_blank" rel="noopener noreferrer">
-            <FaInstagramSquare size={24} />
-          </a>
-        </div>
+        {/* Social Media (appears after hero) */}
+        <SocialLinksFloating />
       </main>
       <Footer />
     </>

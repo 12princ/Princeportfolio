@@ -1,4 +1,4 @@
-import { defineType, defineField, defineArrayMember } from 'sanity';
+import { defineType, defineField } from 'sanity';
 
 export default defineType({
   name: 'project',
@@ -37,6 +37,12 @@ export default defineType({
       of: [{ type: 'image' }],
     }),
     defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'array',
+      of: [{ type: 'block' }],
+    }),
+    defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
@@ -45,7 +51,7 @@ export default defineType({
     defineField({
       name: 'description',
       title: 'Description',
-      type: 'text',
+      type: 'string',
       validation: (Rule: any) => Rule.required(),
     }),
     defineField({
@@ -77,22 +83,6 @@ export default defineType({
       type: 'datetime',
       validation: (Rule: any) => Rule.required(),
     }),
-    defineField({
-      name: 'body',
-      title: 'Body',
-      type: 'array',
-      of: [
-        {
-          type: 'block',
-        },
-        {
-          type: 'image',
-          options: {
-            hotspot: true,
-          },
-        },
-      ],
-    }),
   ],
   preview: {
     select: {
@@ -103,8 +93,8 @@ export default defineType({
     prepare({ title, media, category }) {
       return {
         title,
-        media,
         subtitle: category,
+        media,
       };
     },
   },

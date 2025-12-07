@@ -38,9 +38,7 @@ export default function Blog() {
       try {
         setIsLoading(true);
         setError(null);
-        console.log('Fetching blog posts...');
         const data = await client.fetch(getAllPostsQuery);
-        console.log('Blog posts fetched:', data);
         setPosts(data || []);
       } catch (error) {
         console.error('Error fetching blog posts:', error);
@@ -53,28 +51,43 @@ export default function Blog() {
     fetchBlogPosts();
   }, []);
 
-  // Extract unique tags from all posts
-  const tags = ['all', ...new Set(posts.flatMap(post => post.tags || []))];
+  // Define allowed categories
+  const allowedCategories = [
+    'Career Growth & Development',
+    'Freelancing & Business',
+    'Mindset & Productivity',
+    'Life, Thoughts & Opinions'
+  ];
+
+  // Extract unique tags from posts and filter to only allowed categories
+  const allPostTags = new Set(posts.flatMap(post => post.tags || []));
+  const filteredPostTags = Array.from(allPostTags).filter(tag => {
+    const normalizedTag = tag.toLowerCase();
+    return allowedCategories.some(cat => cat.toLowerCase() === normalizedTag);
+  });
+
+  // Always include 'all' as the first option
+  const tags = ['all', ...filteredPostTags];
 
   const filteredPosts = selectedTag === 'all'
     ? posts
-    : posts.filter(post => post.tags?.includes(selectedTag));
+    : posts.filter(post => post.tags?.some(tag => tag.toLowerCase() === selectedTag.toLowerCase()));
 
   return (
     <>
       <CustomCursor />
       <PageTransition />
       <Navbar />
-      <div className="min-h-screen py-20">
-        <div className="container">
+      <div className="min-h-screen">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-20">
           <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="section-title">Blog</h1>
-            <p className="section-subtitle">
+            <h1 className="text-4xl font-light mb-4">Blog</h1>
+            <p className="text-gray-400 max-w-2xl mx-auto">
               Insights, trends, and stories from the world of fashion
             </p>
           </motion.div>
@@ -110,7 +123,7 @@ export default function Blog() {
                       : 'bg-transparent text-white border border-white/20 hover:border-white/40'
                   }`}
                 >
-                  {tag.charAt(0).toUpperCase() + tag.slice(1)}
+                  {tag === 'all' ? 'ALL' : tag}
                 </button>
               ))}
             </motion.div>

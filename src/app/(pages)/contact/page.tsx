@@ -124,8 +124,8 @@ export default function Contact() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="container py-16 border-t border-gray-800">
-        <div className="text-center max-w-4xl mx-auto">
+      <section className="border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 text-center">
           <motion.h1 
             className="text-6xl font-light mb-6"
             initial={{ opacity: 0, y: 20 }}
@@ -165,8 +165,8 @@ export default function Contact() {
       </section>
 
       {/* Contact Form Section */}
-      <section className="container py-16">
-        <div className="grid md:grid-cols-2 gap-16">
+      <section>
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16 grid md:grid-cols-2 gap-16">
           {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -402,7 +402,7 @@ export default function Contact() {
       </section>
       
       {/* FAQ Section */}
-      <section className="container py-16 border-t border-gray-800">
+      <section className="border-t border-gray-800 pt-12 md:pt-16 lg:pt-20">
         <motion.h2 
           className="text-4xl font-light mb-16 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -412,8 +412,7 @@ export default function Contact() {
         >
           Frequently Asked <span className="text-lime">Questions</span>
         </motion.h2>
-        
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 pb-16 grid md:grid-cols-2 gap-8">
           {[
             {
               question: "What is your typical process for a new project?",
@@ -448,36 +447,35 @@ export default function Contact() {
       </section>
 
       {/* Map Section */}
-      {/* Map Section */}
-<section className="container py-16 border-t border-gray-800">
-  <motion.h2 
-    className="text-4xl font-light mb-16 text-center"
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.5 }}
-  >
-    Find <span className="text-lime">Me</span>
-  </motion.h2>
-  
-  <div className="rounded-xl overflow-hidden h-96 bg-gray-900 relative">
-    {/* Google Maps Embed for London, UK */}
-    <iframe
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19801.84420959653!2d-0.1277583!3d51.5073509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b33316a8d13%3A0x7e09c5b92c8e4d9b!2sLondon%2C%20UK!5e0!3m2!1sen!2sin!4v1695900000000!5m2!1sen!2sin"
-      width="100%"
-      height="100%"
-      style={{ border: 0 }}
-      allowFullScreen=""
-      loading="lazy"
-      referrerPolicy="no-referrer-when-downgrade"
-      className="absolute inset-0"
-    ></iframe>
-  </div>
-</section>
-
+      <section className="container py-16 border-t border-gray-800">
+        <motion.h2 
+          className="text-4xl font-light mb-16 text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          Find <span className="text-lime">Me</span>
+        </motion.h2>
+        
+        <div className="rounded-xl overflow-hidden h-96 bg-gray-900 relative">
+          {/* Google Maps Embed for London, UK */}
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19801.84420959653!2d-0.1277583!3d51.5073509!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48761b33316a8d13%3A0x7e09c5b92c8e4d9b!2sLondon%2C%20UK!5e0!3m2!1sen!2sin!4v1695900000000!5m2!1sen!2sin"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="absolute inset-0"
+          ></iframe>
+        </div>
+      </section>
 
       {/* Call To Action */}
-      <section className="container py-16 border-t border-gray-800">
+      <section className="border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="bg-gradient-to-r from-lime/10 to-transparent p-12 rounded-2xl">
           <div className="max-w-3xl">
             <motion.h2 
@@ -512,6 +510,7 @@ export default function Contact() {
               </a>
             </motion.div>
           </div>
+        </div>
         </div>
       </section>
 

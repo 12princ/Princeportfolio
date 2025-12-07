@@ -68,3 +68,37 @@ src/
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. 
+
+## Environment Variables
+
+Copy `.env.example` to `.env.local` and fill in your values:
+
+```bash
+cp .env.example .env.local
+```
+
+Required environment variables:
+- `NEXT_PUBLIC_SANITY_PROJECT_ID` - Your Sanity project ID
+- `NEXT_PUBLIC_SANITY_DATASET` - Your Sanity dataset (usually 'production')
+- `SANITY_API_TOKEN` - Sanity API token with read permissions (create at https://www.sanity.io/manage)
+
+Optional environment variables:
+- `NEXT_PUBLIC_SITE_URL` - Your production site URL (for SEO and CORS)
+- `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` - Google Search Console verification code
+- `NEXT_PUBLIC_BOTPRESS_BOT_ID` - Botpress chatbot ID (if using)
+
+## Deployment
+
+This project is optimized for deployment on Vercel:
+
+1. Push your code to GitHub
+2. Import your repository in Vercel
+3. Add your environment variables in Vercel dashboard
+4. Deploy!
+
+The project includes:
+- Production-optimized Next.js configuration
+- Image optimization with Sharp
+- SEO metadata and sitemap generation
+- Security headers
+- Performance optimizations

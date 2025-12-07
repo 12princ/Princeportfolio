@@ -56,7 +56,8 @@ export default function About() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="container py-16 border-t border-gray-800">
+      <section className="border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -144,10 +145,12 @@ export default function About() {
             </motion.div>
           </motion.div>
         </div>
+        </div>
       </section>
 
       {/* Skills Section */}
-      <section className="container py-16 border-t border-gray-800">
+      <section className="border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <motion.h2 
           className="text-4xl font-light mb-16 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -183,10 +186,12 @@ export default function About() {
             </motion.div>
           ))}
         </div>
+        </div>
       </section>
 
       {/* Experience Section */}
-      <section className="container py-16 border-t border-gray-800">
+      <section className="border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <motion.h2 
           className="text-4xl font-light mb-16 text-center"
           initial={{ opacity: 0, y: 20 }}
@@ -240,10 +245,12 @@ export default function About() {
             </div>
           )}
         </div>
+        </div>
       </section>
 
       {/* Call To Action */}
-      <section className="container py-16 border-t border-gray-800">
+      <section className="border-t border-gray-800">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="text-center max-w-3xl mx-auto">
           <motion.h2 
             className="text-4xl font-light mb-8"
@@ -276,6 +283,7 @@ export default function About() {
               Get In Touch
             </a>
           </motion.div>
+        </div>
         </div>
       </section>
 
