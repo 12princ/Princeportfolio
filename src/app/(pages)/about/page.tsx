@@ -104,6 +104,20 @@ export default function About() {
                 <span className="text-sm text-gray-400">Full Stack</span>
               </motion.div>
             </div>
+            <motion.div
+              className="mt-10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
+              <a
+                href="/Priyanshu Patel CV.pdf"
+                download
+                className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-lime text-black font-medium hover:bg-opacity-80 transition-all"
+              >
+                Download My Resume
+              </a>
+            </motion.div>
           </motion.div>
           <motion.div
             initial={{ opacity: 0, x: 50 }}
