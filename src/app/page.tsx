@@ -134,6 +134,7 @@ export default function Home() {
                 Developer and designer focused on creating intuitive, user-friendly digital experiences with modern technologies dedicated developer with a diverse skill set in Programming, Graphic Design, and Video Editing. With a passion for creating innovative solutions and a commitment to authenticity, I bring both technical expertise and creative vision to every project. While I'm naturally introverted, I thrive in environments that challenge my thinking and encourage growth. My aim is to deliver high-quality work that exceeds expectations, fostering trust and long-term collaboration. Let's build something great together!
               </motion.p>
               <motion.div
+                className="flex flex-wrap items-center gap-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.7 }}
@@ -144,6 +145,13 @@ export default function Home() {
                 >
                   Contact Me <span className="ml-1">→</span>
                 </Link>
+                <a
+                  href="/Priyanshu Patel CV.pdf"
+                  download
+                  className="px-6 py-3 rounded-full border border-lime text-lime font-medium hover:bg-lime/10 transition-all"
+                >
+                  Download My Resume
+                </a>
               </motion.div>
             </div>
             <div className="relative">
