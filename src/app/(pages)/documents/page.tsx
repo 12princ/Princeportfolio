@@ -45,6 +45,25 @@ export default function Documents() {
     fetchDocuments();
   }, []);
 
+  // Helper function to extract plain text from Portable Text or string
+  const getPlainText = (content: any): string => {
+    if (!content) return '';
+    if (typeof content === 'string') return content;
+    if (Array.isArray(content)) {
+      // Portable Text array - extract text from blocks
+      return content
+        .map((block: any) => {
+          if (block._type === 'block' && block.children) {
+            return block.children.map((child: any) => child.text || '').join('');
+          }
+          return '';
+        })
+        .join(' ')
+        .trim();
+    }
+    return String(content);
+  };
+
   const getFileIcon = (fileRef: string) => {
     if (!fileRef) return <FaFileAlt className="text-gray-400" />;
     if (fileRef.includes('pdf')) return <FaFilePdf className="text-red-500" />;
@@ -120,7 +139,7 @@ export default function Documents() {
                   
                   {document.description && (
                     <p className="text-gray-400 text-sm mb-4 line-clamp-2">
-                      {document.description}
+                      {getPlainText(document.description)}
                     </p>
                   )}
 

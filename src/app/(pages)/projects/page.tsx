@@ -17,7 +17,7 @@ import { urlForImage } from '@sanity/lib/image';
 interface Project {
   _id: string;
   title: string;
-  description?: string;
+  description?: string | any[]; // Can be string or Portable Text array
   mainImage: any;
   images?: any[];
   technologies?: string[];
@@ -41,10 +41,31 @@ export default function Projects() {
         setIsLoading(true);
         setError(null);
         const data = await client.fetch(projectsQuery);
-        setProjects((data ?? []).map((p: Project) => ({
+        // Helper to process description
+        const processDescription = (desc: any): string => {
+          if (!desc) return '';
+          if (typeof desc === 'string') return desc;
+          if (Array.isArray(desc)) {
+            return desc
+              .map((block: any) => {
+                if (block?._type === 'block' && block.children) {
+                  return block.children
+                    .map((child: any) => child?.text || '')
+                    .join('');
+                }
+                return '';
+              })
+              .filter(Boolean)
+              .join(' ')
+              .trim();
+          }
+          return String(desc);
+        };
+        
+        setProjects((data ?? []).map((p: any) => ({
           ...p,
           title: p.title ?? '',
-          description: p.description ?? '',
+          description: processDescription(p.description),
           category: p.category ?? '',
           technologies: p.technologies ?? [],
           images: p.images ?? [],
@@ -61,6 +82,40 @@ export default function Projects() {
 
     fetchProjects();
   }, []);
+
+  // Helper function to extract plain text from Portable Text or string
+  const getPlainText = (content: any): string => {
+    if (!content) return '';
+    if (typeof content === 'string') return content;
+    if (Array.isArray(content)) {
+      // Portable Text array - extract text from blocks
+      return content
+        .map((block: any) => {
+          if (!block) return '';
+          if (block._type === 'block' && block.children) {
+            return block.children
+              .map((child: any) => {
+                if (typeof child === 'string') return child;
+                if (child && typeof child === 'object' && child.text) return child.text;
+                return '';
+              })
+              .join('');
+          }
+          return '';
+        })
+        .filter(Boolean)
+        .join(' ')
+        .trim();
+    }
+    if (typeof content === 'object') {
+      // Handle object case - try to extract text
+      if (content.text) return String(content.text);
+      if (content.children && Array.isArray(content.children)) {
+        return content.children.map((c: any) => c.text || '').join('');
+      }
+    }
+    return String(content);
+  };
 
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
@@ -137,8 +192,14 @@ export default function Projects() {
                       )}
                     </div>
 
-                    <h3 className="text-xl font-medium mb-2">{project.title}</h3>
-                    <p className="text-gray-400 mb-4 line-clamp-3">{project.description}</p>
+                    <h3 className="text-xl font-medium mb-2">{project.title || ''}</h3>
+                    {project.description && (
+                      <p className="text-gray-400 mb-4 line-clamp-3">
+                        {typeof project.description === 'string' 
+                          ? project.description 
+                          : getPlainText(project.description)}
+                      </p>
+                    )}
 
                     <div className="flex flex-wrap gap-2 mb-4">
                       {(project.technologies ?? []).map((tag, idx) => (

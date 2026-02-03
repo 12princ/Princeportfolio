@@ -151,17 +151,32 @@ export default function ProjectPage({ params }: { params: { slug: string } }) {
         <section className="container py-12">
           <div className="max-w-4xl mx-auto">
             {/* Project Description */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
-              className="mb-12"
-            >
-              <h2 className="text-2xl font-medium mb-4">Project Overview</h2>
-              <p className="text-gray-300 text-lg leading-relaxed mb-4">
-                {project.description}
-              </p>
-            </motion.div>
+            {project.description && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7 }}
+                className="mb-12"
+              >
+                <h2 className="text-2xl font-medium mb-4">Project Overview</h2>
+                {Array.isArray(project.description) ? (
+                  <PortableText
+                    value={project.description}
+                    components={{
+                      block: {
+                        normal: ({ children }) => (
+                          <p className="text-gray-300 text-lg leading-relaxed mb-4">{children}</p>
+                        ),
+                      },
+                    }}
+                  />
+                ) : (
+                  <p className="text-gray-300 text-lg leading-relaxed mb-4">
+                    {project.description}
+                  </p>
+                )}
+              </motion.div>
+            )}
 
             {/* Project Body (Details) */}
             {project.body && project.body.length > 0 && (
