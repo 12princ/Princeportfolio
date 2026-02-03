@@ -1,5 +1,5 @@
 import { StructureBuilder } from 'sanity/desk';
-import { FaUser, FaBriefcase, FaCode, FaNewspaper, FaEnvelope } from 'react-icons/fa';
+import { FaUser, FaBriefcase, FaCode, FaNewspaper, FaEnvelope, FaFileAlt } from 'react-icons/fa';
 
 export const deskStructure = (S: StructureBuilder) => 
   S.list()
@@ -71,6 +71,17 @@ export const deskStructure = (S: StructureBuilder) =>
             .defaultOrdering([{field: 'order', direction: 'asc'}])
         ),
       
+      // Documents
+      S.listItem()
+        .title('Documents')
+        .icon(FaFileAlt)
+        .child(
+          S.documentList()
+            .title('Documents')
+            .filter('_type == "officialDocument"')
+            .defaultOrdering([{field: 'order', direction: 'asc'}, {field: 'publishedAt', direction: 'desc'}])
+        ),
+      
       // Blog
       S.listItem()
         .title('Blog')
@@ -113,7 +124,8 @@ export const deskStructure = (S: StructureBuilder) =>
           'about', 
           'contact', 
           'project', 
-          'service', 
+          'service',
+          'officialDocument',
           'post',
           'author'
         ].includes(listItem.getId() || ''))

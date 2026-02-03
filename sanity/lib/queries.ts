@@ -205,3 +205,26 @@ export const getTimelineQuery = groq`*[_type == "timeline"] | order(order asc) {
   company,
   description
 }`;
+
+// Document queries
+export const getAllDocumentsQuery = groq`
+*[_type == "officialDocument"] | order(order asc, publishedAt desc) {
+  _id,
+  title,
+  description,
+  category,
+  file,
+  order,
+  publishedAt
+}`;
+
+export const getDocumentsByCategoryQuery = groq`
+*[_type == "officialDocument" && category == $category] | order(order asc, publishedAt desc) {
+  _id,
+  title,
+  description,
+  category,
+  file,
+  order,
+  publishedAt
+}`;

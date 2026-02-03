@@ -24,6 +24,7 @@ export default function Navbar() {
           <div className="absolute hidden group-hover:block bg-gray-900 p-2 min-w-40 z-10">
             <Link href="/blog" className="block py-2 px-4 hover:text-lime transition-colors">Blog</Link>
             <Link href="/contact" className="block py-2 px-4 hover:text-lime transition-colors">Contact</Link>
+            <Link href="/documents" className="block py-2 px-4 hover:text-lime transition-colors">Documents</Link>
           </div>
         </div>
       </nav>
@@ -89,6 +90,13 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(false)}
           >
             Contact
+          </Link>
+          <Link 
+            href="/documents" 
+            className="hover:text-lime transition-colors"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            Documents
           </Link>
           <Link 
             href="/contact" 

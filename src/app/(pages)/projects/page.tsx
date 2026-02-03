@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -31,7 +31,6 @@ interface Project {
 }
 
 export default function Projects() {
-  const [activeCategory, setActiveCategory] = useState<string>("All");
   const [projects, setProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -63,63 +62,6 @@ export default function Projects() {
     fetchProjects();
   }, []);
 
-  // Shared normalization function for consistent category comparison
-  // Handles case-insensitive matching, whitespace, and special characters
-  const normalizeCategory = (category: string): string => {
-    if (!category || typeof category !== 'string') return '';
-    // Convert to lowercase, trim, and replace multiple spaces with single space
-    return category.toLowerCase().trim().replace(/\s+/g, ' ');
-  };
-
-  // Extract unique categories dynamically from Sanity project data
-  // Removes duplicates and displays only unique categories from the category field
-  const categories = useMemo(() => {
-    // Use Set to track normalized categories we've seen (for true deduplication)
-    const seenNormalized = new Set<string>();
-    // Use Map to store normalized -> original casing mapping
-    const uniqueCategoryMap = new Map<string, string>();
-    
-    // Iterate through all projects and collect unique categories from Sanity
-    projects.forEach(p => {
-      const category = p.category;
-      
-      // Skip if category is empty, null, or undefined
-      if (!category || typeof category !== 'string') return;
-      
-      // Normalize the category for comparison
-      const normalized = normalizeCategory(category);
-      
-      // Skip if normalized category is empty
-      if (!normalized) return;
-      
-      // Only add if this normalized category hasn't been seen before
-      // This ensures duplicates are completely ignored
-      if (!seenNormalized.has(normalized)) {
-        seenNormalized.add(normalized);
-        // Store first occurrence's original casing for display
-        uniqueCategoryMap.set(normalized, category.trim());
-      }
-    });
-    
-    // Convert to sorted array of unique categories only
-    const uniqueCategories = Array.from(uniqueCategoryMap.values()).sort();
-    return ["All", ...uniqueCategories];
-  }, [projects]);
-
-  // Filter projects based on active category from Sanity data
-  const filteredProjects = useMemo(() => {
-    if (activeCategory === 'All') {
-      return projects;
-    }
-    
-    const normalizedActiveCategory = normalizeCategory(activeCategory);
-    
-    return projects.filter(p => {
-      const normalizedProjectCategory = normalizeCategory(p.category ?? '');
-      return normalizedProjectCategory === normalizedActiveCategory;
-    });
-  }, [projects, activeCategory]);
-
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
       <CustomCursor />
@@ -146,30 +88,6 @@ export default function Projects() {
         </div>
       </section>
 
-      {/* Filter Categories */}
-      <section>
-        <div className="max-w-6xl mx-auto px-6 md:px-12 pb-12">
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-          {categories.map((category, index) => (
-            <motion.button
-              key={category}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                activeCategory === category
-                  ? "bg-lime text-black"
-                  : "bg-gray-900/50 text-gray-300 hover:bg-gray-800"
-              }`}
-              onClick={() => setActiveCategory(category)}
-            >
-              {category}
-            </motion.button>
-          ))}
-          </div>
-        </div>
-      </section>
-
       {/* Projects Grid */}
       <section>
         <div className="max-w-6xl mx-auto px-6 md:px-12 pb-16">
@@ -182,10 +100,10 @@ export default function Projects() {
               <p className="text-xl mb-4">Unable to load projects</p>
               <p className="text-gray-400 mb-8">Please try again later</p>
             </div>
-          ) : filteredProjects.length === 0 ? (
+          ) : projects.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-xl mb-4">No projects found</p>
-              <p className="text-gray-400 mb-8">Try a different category</p>
+              <p className="text-gray-400 mb-8">Add projects in Sanity Studio</p>
             </div>
           ) : (
             <motion.div
@@ -195,7 +113,7 @@ export default function Projects() {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              {filteredProjects.map((project, index) => {
+              {projects.map((project, index) => {
                 const imgUrl = urlForImage(project.mainImage)?.url();
                 return (
                   <motion.div
